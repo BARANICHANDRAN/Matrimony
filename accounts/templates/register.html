@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Matrimony</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #ff6b6b;
+            --primary-dark: #ff5252;
+            --text-color: #333;
+            --text-light: #666;
+            --background: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .register-container:hover {
+            transform: translateY(-5px);
+        }
+
+        .register-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo-container {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .register-header h2 {
+            color: var(--text-color);
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .register-header p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .error-message {
+            background-color: #fff5f5;
+            color: #e53e3e;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            border: 1px solid #fed7d7;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group label.required:after {
+            content: " *";
+            color: var(--primary-color);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+        }
+
+        .form-group .errorlist {
+            color: #e53e3e;
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+            font-size: 0.875rem;
+        }
+
+        button[type="submit"] {
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .links a:hover {
+            color: var(--primary-dark);
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+
+            .register-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .register-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .logo {
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="register-header">
+            <div class="logo-container">
+                <img src="/media/Logo.png" alt="Matrimony Logo" class="logo">
+            </div>
+            <h2>Create Your Account</h2>
+            <p>Start your journey to find true love</p>
+        </div>
+        
+        {% if form.errors %}
+            <div class="error-message">
+                <p>Please correct the errors below.</p>
+            </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ user_form.name.errors }}
+                <label for="{{ user_form.name.id_for_label }}" class="required">Full Name</label>
+                {{ user_form.name }}
+            </div>
+            <div class="form-group">
+                {{ user_form.email.errors }}
+                <label for="{{ user_form.email.id_for_label }}" class="required">Email</label>
+                {{ user_form.email }}
+            </div>
+            <div class="form-group">
+                {{ user_form.password1.errors }}
+                <label for="{{ user_form.password1.id_for_label }}" class="required">Password</label>
+                {{ user_form.password1 }}
+            </div>
+            <div class="form-group">
+                {{ user_form.password2.errors }}
+                <label for="{{ user_form.password2.id_for_label }}" class="required">Confirm Password</label>
+                {{ user_form.password2 }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.phone_number.errors }}
+                <label for="{{ profile_form.phone_number.id_for_label }}" class="required">Phone Number</label>
+                {{ profile_form.phone_number }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.dob.errors }}
+                <label for="{{ profile_form.dob.id_for_label }}" class="required">Date of Birth</label>
+                {{ profile_form.dob }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.gender.errors }}
+                <label for="{{ profile_form.gender.id_for_label }}" class="required">Gender</label>
+                {{ profile_form.gender }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.location.errors }}
+                <label for="{{ profile_form.location.id_for_label }}" class="required">Location</label>
+                {{ profile_form.location }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.bio.errors }}
+                <label for="{{ profile_form.bio.id_for_label }}" class="required">Bio</label>
+                {{ profile_form.bio }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.profile_picture.errors }}
+                <label for="{{ profile_form.profile_picture.id_for_label }}" class="required">Profile Picture</label>
+                {{ profile_form.profile_picture }}
+            </div>
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div class="links">
+            <a href="{% url 'login' %}">← Already have an account? Login here</a>
+            <a href="{% url 'index' %}">← Back to Home</a>
+        </div>
+    </div>
+</body>
+</html>

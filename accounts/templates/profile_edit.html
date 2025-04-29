@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="tel"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ user_form.name.errors }}
+                <label for="{{ user_form.name.id_for_label }}" class="required">Full Name:</label>
+                {{ user_form.name }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.phone_number.errors }}
+                <label for="{{ profile_form.phone_number.id_for_label }}" class="required">Phone Number:</label>
+                {{ profile_form.phone_number }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.dob.errors }}
+                <label for="{{ profile_form.dob.id_for_label }}" class="required">Date of Birth:</label>
+                {{ profile_form.dob }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.gender.errors }}
+                <label for="{{ profile_form.gender.id_for_label }}" class="required">Gender:</label>
+                {{ profile_form.gender }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.location.errors }}
+                <label for="{{ profile_form.location.id_for_label }}" class="required">Location:</label>
+                {{ profile_form.location }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.bio.errors }}
+                <label for="{{ profile_form.bio.id_for_label }}" class="required">Bio:</label>
+                {{ profile_form.bio }}
+            </div>
+            <div class="form-group">
+                {{ profile_form.profile_picture.errors }}
+                <label for="{{ profile_form.profile_picture.id_for_label }}">Profile Picture:</label>
+                {{ profile_form.profile_picture }}
+            </div>
+            <div class="action-buttons">
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+                <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse Profiles</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #ff6b6b;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-logo {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+        .nav-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .filters-section {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .filters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .filter-group input[type="number"] {
+            width: 100%;
+        }
+
+        .apply-filters {
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .apply-filters:hover {
+            background-color: #ff5252;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .profiles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .profile-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .profile-image-container {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .profile-content {
+            padding: 15px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-name {
+            font-size: 1.8rem;
+            margin: 0 0 10px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .profile-info {
+            color: #666;
+            margin: 5px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .profile-age {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .profile-location {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .filters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="{% url 'profile_list' %}" class="nav-brand">
+            <img src="/media/Logo.png" alt="Matrimony Logo" class="nav-logo">
+            <span class="nav-title">Matrimony</span>
+        </a>
+        <div class="nav-links">
+            <a href="{% url 'profile' %}" class="nav-link">My Profile</a>
+            <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="nav-link" style="background: none; border: none; cursor: pointer;">Logout</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="filters-section">
+            <form method="get" class="filters-grid">
+                <div class="filter-group">
+                    <label for="min_age">Min Age</label>
+                    <input type="number" name="min_age" id="min_age" min="18" max="100">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="max_age">Max Age</label>
+                    <input type="number" name="max_age" id="max_age" min="18" max="100">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <input type="text" name="location" id="location" placeholder="Enter location">
+                </div>
+                
+                <div class="filter-group">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="apply-filters">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="profiles-grid">
+            {% for profile in profiles %}
+            <a href="{% url 'profile_detail' profile.pk %}" class="profile-card">
+                <div class="profile-image-container">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.name }}" class="profile-image">
+                    {% else %}
+                        <img src="/media/profile_pics/default.jpg" alt="{{ profile.user.name }}" class="profile-image">
+                    {% endif %}
+                </div>
+                <div class="profile-content">
+                    <h3 class="profile-name">{{ profile.user.name }}</h3>
+                    <div class="profile-info">
+                        <span class="profile-age">{{ profile.age }} years</span>
+                        <span class="profile-location">📍 {{ profile.location }}</span>
+                    </div>
+                </div>
+            </a>
+            {% empty %}
+            <p>No profiles found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

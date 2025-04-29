@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Deletion</title>
+</head>
+<body>
+    <h1>Are you sure you want to delete your profile?</h1>
+    <form action="{% url 'delete_profile' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete my profile</button>
+    </form>
+    <a href="{% url 'profile' %}">
+        <button type="submit">No, take me back to my profile</button>
+    </a>
+</body>
+</html>
